@@ -58,7 +58,7 @@ $(function(){
         var data_as_json;
 
         $.ajax({
-            url: "/functionalTestingProject/item",
+            url: "/twuFunctionalTesting/item",
             data: {item_id : id},
             success: function(data) {
                 data_as_json = JSON.parse(data);
