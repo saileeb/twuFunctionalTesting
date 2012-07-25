@@ -61,4 +61,24 @@ describe("OrderForm", function() {
         expect(order_form.price.text()).toBe("75.00");
         expect(order_form.tax.text()).toBe("0.10");
     });
+
+    it("should change the selected item id", function() {
+        var order_form = OrderForm.init(null, null, null, 3);
+
+        var form_action = order_form.get_action();
+
+        expect(form_action).toBe('/twuFunctionalTesting/order/create?itemId=3');
+    });
+
+    it("should update action", function() {
+        var price_field = $("<span>3.00</span>");
+        var tax_field = $("<span>0.10</span>");
+
+        var order_form = OrderForm.init(price_field, tax_field, null, 1);
+
+        order_form.update("75.00", "0.10", 7);
+        var form_action = order_form.get_action();
+
+        expect(form_action).toBe('/twuFunctionalTesting/order/create?itemId=7');
+    });
 });

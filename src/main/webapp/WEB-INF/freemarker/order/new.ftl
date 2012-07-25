@@ -3,7 +3,7 @@
 
 <@layout.template 'Add Order' >
     <#assign first_item=items[0]/>
-    <#assign create_url='/order/create?itemId='/>
+    <#assign create_url='/order/create?itemId=${first_item.id}'/>
 
     <form action="<@spring.url '${create_url}'/>" id="newOrderForm" class="form_background" method="POST">
         <h4 id="form_title">Place Your Order</h4>

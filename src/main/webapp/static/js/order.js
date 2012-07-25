@@ -17,17 +17,23 @@ var OrderForm = function() {
 
     self.get_formatted_field = function(field) {
         return parseFloat(field.text()).toFixed(2);
-    }
+    };
 
-    self.update = function(new_price, new_tax) {
+    self.get_action = function() {
+        return "/twuFunctionalTesting/order/create?itemId=" + self.item_id;
+    };
+
+    self.update = function(new_price, new_tax, new_item_id) {
         self.price.text(new_price);
         self.tax.text(new_tax);
-    }
+        self.item_id = new_item_id;
+    };
 
-    init = function(price_field, tax_field, total_field) {
+    init = function(price_field, tax_field, total_field, item_selected) {
         self.price = price_field;
         self.tax = tax_field;
         self.total = total_field;
+        self.item_id = item_selected;
         self.hidden_total = $("#hidden_current_total");
 
         return self;
@@ -37,17 +43,15 @@ var OrderForm = function() {
 }();
 
 $(function(){
-    var order_form = OrderForm.init($("#current_price"), $("#current_tax"), $("#current_total"));
+    var selected_item_index = $("#items option:selected").val();
+    var order_form = OrderForm.init($("#current_price"), $("#current_tax"), $("#current_total"), selected_item_index);
     order_form.calculate_total();
 
     $("#submitButton").click(function(event) {
         validator = OrderFormValidator.init($("#name_field"), $("#email_field"));
         if(validator.validate()) {
-            var new_form = $("#newOrderForm");
-            var action = new_form.attr("action");
-            var selected_item_index = $("#items option:selected").val();
-
-            new_form.attr("action", (action + selected_item_index));
+            var new_action = order_form.get_action();
+            $("#newOrderForm").attr("action", new_action);
         } else {
             event.preventDefault();
         }
@@ -62,7 +66,7 @@ $(function(){
             data: {item_id : id},
             success: function(data) {
                 data_as_json = JSON.parse(data);
-                order_form.update(data_as_json["price"], data_as_json["tax"]);
+                order_form.update(data_as_json["price"], data_as_json["tax"], id);
                 order_form.calculate_total();
             },
             error: function() {
