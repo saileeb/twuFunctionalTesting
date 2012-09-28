@@ -13,7 +13,7 @@ public class OrderFunctionalTest {
         driver.get("http://localhost:8080/twuFunctionalTesting/order/new");
 
         WebElement nameElement = driver.findElement(By.id("name_field"));
-        nameElement.sendKeys("awesome");
+        nameElement.sendKeys("123");
 
         WebElement emailElement = driver.findElement(By.id("email_field"));
         emailElement.sendKeys("awesome@awesome.com");
@@ -22,6 +22,14 @@ public class OrderFunctionalTest {
         submitButtonElement.submit();
 //        submitButtonElement.click();
 
+        String PageTitle=driver.getTitle();
+        String check="Add Order";
+      
+        boolean checkName=PageTitle.equals(check);
+
+	assertTrue("Test Unsuccessful!!Name should not contain any numbers",checkName);
+
+	
         driver.close();
     }
 }
