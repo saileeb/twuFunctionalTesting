@@ -27,7 +27,7 @@ public class OrderFunctionalTest {
       
         boolean checkName=PageTitle.equals(check);
 
-	assertTrue("Test Unsuccessful!!Name should not contain any numbers",checkName);
+	assertTrue("Test Unsuccessful!!Name should not contain any numbers and special charcters!",checkName);
 
 	
         driver.close();
