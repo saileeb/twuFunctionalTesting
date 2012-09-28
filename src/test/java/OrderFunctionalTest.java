@@ -13,10 +13,10 @@ public class OrderFunctionalTest {
         driver.get("http://localhost:8080/twuFunctionalTesting/order/new");
 
         WebElement nameElement = driver.findElement(By.id("name_field"));
-        nameElement.sendKeys("123");
+        nameElement.sendKeys("awesome");
 
         WebElement emailElement = driver.findElement(By.id("email_field"));
-        emailElement.sendKeys("awesome@awesome.com");
+        emailElement.sendKeys("123");
 
         WebElement submitButtonElement = driver.findElement(By.id("submitButton"));
         submitButtonElement.submit();
@@ -25,9 +25,9 @@ public class OrderFunctionalTest {
         String PageTitle=driver.getTitle();
         String check="Add Order";
       
-        boolean checkName=PageTitle.equals(check);
+        boolean checkEmail=PageTitle.equals(check);
 
-	assertTrue("Test Unsuccessful!!Name should not contain any numbers and special charcters!",checkName);
+	assertTrue("Email should be of the form abc@xyz.com",checkEmail);
 
 	
         driver.close();
